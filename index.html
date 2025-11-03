@@ -111,7 +111,7 @@
       line-height: 1.5em;
     }
 
-    /* Prototype button */
+    /* Buttons */
     .button {
       display: inline-block;
       background: #e63946;
@@ -122,6 +122,7 @@
       font-weight: bold;
       transition: 0.3s;
       margin-top: 15px;
+      cursor: pointer;
     }
 
     .button:hover {
@@ -166,6 +167,46 @@
       text-align: center;
       padding: 25px 20px;
     }
+
+    /* Prototype Modal */
+    #prototypeModal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7);
+      justify-content: center;
+      align-items: center;
+    }
+
+    #prototypeContent {
+      background: white;
+      border-radius: 10px;
+      padding: 30px;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .option-button {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 6px;
+      font-size: 1em;
+      cursor: pointer;
+      background: #1d3557;
+      color: white;
+      transition: 0.3s;
+    }
+
+    .option-button:hover {
+      background: #457b9d;
+    }
+
   </style>
 </head>
 <body>
@@ -217,6 +258,7 @@
       <h2>View Prototype</h2>
       <p>Click below to explore our working prototype and see the app in action:</p>
       <a href="https://marvelapp.com/prototype/agh2aj1/screen/98009500" target="_blank" class="button">Try Prototype</a>
+      <button class="button" onclick="startInteractive()">Interactive Flow</button>
     </section>
 
     <section id="contact">
@@ -234,6 +276,94 @@
   <footer>
     &copy; 2025 Emergency Service App | Designed for safety and innovation
   </footer>
+
+  <!-- Interactive Prototype Modal -->
+  <div id="prototypeModal">
+    <div id="prototypeContent">
+      <div id="stepContent">
+        <!-- Dynamic content injected here -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const modal = document.getElementById("prototypeModal");
+    const stepContent = document.getElementById("stepContent");
+
+    function startInteractive() {
+      modal.style.display = "flex";
+      stepWelcome();
+    }
+
+    function stepWelcome() {
+      stepContent.innerHTML = `
+        <h2>Emergency Service</h2>
+        <button class="option-button" onclick="stepService()">Continue</button>
+      `;
+    }
+
+    function stepService() {
+      stepContent.innerHTML = `
+        <h2>What Service Do You Require?</h2>
+        <button class="option-button" onclick="stepFire()">Fire Fighters</button>
+        <button class="option-button" onclick="stepPolice()">Police</button>
+        <button class="option-button" onclick="stepAmbulance()">Ambulance</button>
+      `;
+    }
+
+    function stepFire() {
+      stepContent.innerHTML = `
+        <h2>Are you safe?</h2>
+        <button class="option-button" onclick="alertFireYes()">Yes</button>
+        <button class="option-button" onclick="alertFireNo()">No</button>
+      `;
+    }
+
+    function alertFireYes() {
+      stepContent.innerHTML = `<h2>Help is on the way to your location!</h2>`;
+    }
+
+    function alertFireNo() {
+      stepContent.innerHTML = `<h2>Evacuate safely and fast! Help is on the way!</h2>`;
+    }
+
+    function stepPolice() {
+      stepContent.innerHTML = `
+        <h2>Are you safe?</h2>
+        <button class="option-button" onclick="alertPoliceYes()">Yes</button>
+        <button class="option-button" onclick="alertPoliceNo()">No</button>
+      `;
+    }
+
+    function alertPoliceYes() {
+      stepContent.innerHTML = `<h2>Help is on the way to your location!</h2>`;
+    }
+
+    function alertPoliceNo() {
+      stepContent.innerHTML = `<h2>Quietly find a hiding spot! Help is on the way!</h2>`;
+    }
+
+    function stepAmbulance() {
+      stepContent.innerHTML = `
+        <h2>Are you safe?</h2>
+        <button class="option-button" onclick="alertAmbulanceYes()">Yes</button>
+        <button class="option-button" onclick="alertAmbulanceNo()">No</button>
+      `;
+    }
+
+    function alertAmbulanceYes() {
+      stepContent.innerHTML = `<h2>Help is on the way to your location!</h2>`;
+    }
+
+    function alertAmbulanceNo() {
+      stepContent.innerHTML = `<h2>Stay calm! Fast help is on the way!</h2>`;
+    }
+
+    // Close modal if clicked outside
+    modal.addEventListener("click", (e) => {
+      if(e.target === modal) modal.style.display = "none";
+    });
+  </script>
 
 </body>
 </html>
