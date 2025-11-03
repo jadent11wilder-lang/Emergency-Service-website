@@ -187,6 +187,14 @@
       width: 90%;
       max-width: 400px;
       text-align: center;
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: opacity 0.4s, transform 0.4s;
+    }
+
+    #prototypeContent.show {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .option-button {
@@ -280,19 +288,24 @@
   <!-- Interactive Prototype Modal -->
   <div id="prototypeModal">
     <div id="prototypeContent">
-      <div id="stepContent">
-        <!-- Dynamic content injected here -->
-      </div>
+      <div id="stepContent"></div>
     </div>
   </div>
 
   <script>
     const modal = document.getElementById("prototypeModal");
+    const prototypeContent = document.getElementById("prototypeContent");
     const stepContent = document.getElementById("stepContent");
 
     function startInteractive() {
       modal.style.display = "flex";
+      fadeIn(prototypeContent);
       stepWelcome();
+    }
+
+    function fadeIn(element) {
+      element.classList.remove("show");
+      setTimeout(() => element.classList.add("show"), 10);
     }
 
     function stepWelcome() {
@@ -300,6 +313,7 @@
         <h2>Emergency Service</h2>
         <button class="option-button" onclick="stepService()">Continue</button>
       `;
+      fadeIn(prototypeContent);
     }
 
     function stepService() {
@@ -309,6 +323,7 @@
         <button class="option-button" onclick="stepPolice()">Police</button>
         <button class="option-button" onclick="stepAmbulance()">Ambulance</button>
       `;
+      fadeIn(prototypeContent);
     }
 
     function stepFire() {
@@ -317,14 +332,17 @@
         <button class="option-button" onclick="alertFireYes()">Yes</button>
         <button class="option-button" onclick="alertFireNo()">No</button>
       `;
+      fadeIn(prototypeContent);
     }
 
     function alertFireYes() {
       stepContent.innerHTML = `<h2>Help is on the way to your location!</h2>`;
+      fadeIn(prototypeContent);
     }
 
     function alertFireNo() {
       stepContent.innerHTML = `<h2>Evacuate safely and fast! Help is on the way!</h2>`;
+      fadeIn(prototypeContent);
     }
 
     function stepPolice() {
@@ -333,14 +351,17 @@
         <button class="option-button" onclick="alertPoliceYes()">Yes</button>
         <button class="option-button" onclick="alertPoliceNo()">No</button>
       `;
+      fadeIn(prototypeContent);
     }
 
     function alertPoliceYes() {
       stepContent.innerHTML = `<h2>Help is on the way to your location!</h2>`;
+      fadeIn(prototypeContent);
     }
 
     function alertPoliceNo() {
       stepContent.innerHTML = `<h2>Quietly find a hiding spot! Help is on the way!</h2>`;
+      fadeIn(prototypeContent);
     }
 
     function stepAmbulance() {
@@ -349,21 +370,23 @@
         <button class="option-button" onclick="alertAmbulanceYes()">Yes</button>
         <button class="option-button" onclick="alertAmbulanceNo()">No</button>
       `;
+      fadeIn(prototypeContent);
     }
 
     function alertAmbulanceYes() {
       stepContent.innerHTML = `<h2>Help is on the way to your location!</h2>`;
+      fadeIn(prototypeContent);
     }
 
     function alertAmbulanceNo() {
       stepContent.innerHTML = `<h2>Stay calm! Fast help is on the way!</h2>`;
+      fadeIn(prototypeContent);
     }
 
-    // Close modal if clicked outside
     modal.addEventListener("click", (e) => {
       if(e.target === modal) modal.style.display = "none";
     });
-  </script>
 
+  </script>
 </body>
 </html>
